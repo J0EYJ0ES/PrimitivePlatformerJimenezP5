@@ -38,6 +38,19 @@ public class PlayerControl : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        // Respawn the player if they fall below a certain y-level (-5)
+        if (transform.position.y < -5f)
+        {
+            transform.position = new Vector3(1f, 0.5f, 0f);
+
+            // Reset Rigidbody velocity so the object doesn't continue falling after teleporting
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+        }
     }
 
     // LateUpdate is called after all Update functions have been called
